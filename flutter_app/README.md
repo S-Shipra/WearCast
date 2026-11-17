@@ -1,17 +1,17 @@
-# flutter_app
+# Wearcast
 
-A new Flutter project.
+Wearcast recommends outfits from the clothing catalog using local weather, then lets signed-in users save outfits and favorite individual pieces.
 
-## Getting Started
+## Run locally
 
-This project is a starting point for a Flutter application.
+1. Start MongoDB and, from `backend`, copy `.env.example` to `.env`; set `MONGO_URI` and replace `JWT_SECRET` with a long, private value.
+2. From `backend`, run `npm install`, then `npm run seed` and `npm start`. Rerun the seed command after catalog metadata changes; it updates matching items by image URL and preserves their IDs.
+3. From `flutter_app`, run `flutter pub get` and `flutter run`.
 
-A few resources to get you started if this is your first Flutter project:
+The app currently defaults to `http://localhost:5000/api`. Override it for an emulator, phone, or hosted backend with:
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+```sh
+flutter run --dart-define=WEARCAST_API_URL=http://YOUR_MACHINE_ADDRESS:5000/api
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Use HTTPS for deployed environments. Weather is provided by Open-Meteo; city lookup and approximate location use public geocoding and IP location services.

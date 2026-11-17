@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:intl/intl.dart';
 
 class WeatherGraph extends StatelessWidget {
@@ -21,12 +21,8 @@ class WeatherGraph extends StatelessWidget {
       child: Stack(
         children: [
           // 1. The Background Arc & Line
-          Positioned.fill(
-            child: CustomPaint(
-              painter: _ArcPainter(),
-            ),
-          ),
-          
+          Positioned.fill(child: CustomPaint(painter: _ArcPainter())),
+
           // 2. The Data Points & Labels
           Positioned.fill(
             child: Row(
@@ -35,20 +31,31 @@ class WeatherGraph extends StatelessWidget {
               children: [
                 _buildTimeLabel(t1, "23°"),
                 _buildTimeLabel(t2, "27°"),
-                
+
                 // Highlighted Current Time
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
-                      width: 8, height: 8,
-                      decoration: const BoxDecoration(color: Color(0xFF2C3E50), shape: BoxShape.circle),
+                      width: 8,
+                      height: 8,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFF2C3E50),
+                        shape: BoxShape.circle,
+                      ),
                     ),
                     const SizedBox(height: 4),
-                    Text("$t3 • 29°", style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Color(0xFF2C3E50))),
+                    Text(
+                      "$t3 • 29°",
+                      style: const TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF2C3E50),
+                      ),
+                    ),
                   ],
                 ),
-                
+
                 _buildTimeLabel(t4, "25°"),
                 _buildTimeLabel(t5, "22°"),
               ],
@@ -63,7 +70,10 @@ class WeatherGraph extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Text("$time • $temp", style: const TextStyle(fontSize: 10, color: Colors.grey)),
+        Text(
+          "$time • $temp",
+          style: const TextStyle(fontSize: 10, color: Colors.grey),
+        ),
         const SizedBox(height: 10),
       ],
     );
@@ -83,22 +93,26 @@ class _ArcPainter extends CustomPainter {
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: [
-          const Color(0xFF2C3E50).withOpacity(0.1),
-          Colors.white.withOpacity(0.0),
+          const Color(0xFF2C3E50).withValues(alpha: 0.1),
+          Colors.white.withValues(alpha: 0.0),
         ],
       ).createShader(Rect.fromLTWH(0, 0, size.width, size.height));
 
     final path = Path();
-    
+
     path.moveTo(0, size.height - 20);
 
     path.quadraticBezierTo(
-      size.width * 0.25, size.height * 0.1, 
-      size.width * 0.5, size.height * 0.2,  
+      size.width * 0.25,
+      size.height * 0.1,
+      size.width * 0.5,
+      size.height * 0.2,
     );
     path.quadraticBezierTo(
-      size.width * 0.75, size.height * 0.3, 
-      size.width, size.height - 20,         
+      size.width * 0.75,
+      size.height * 0.3,
+      size.width,
+      size.height - 20,
     );
 
     canvas.drawPath(path, paintLine);

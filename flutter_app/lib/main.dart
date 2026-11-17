@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
+
 import 'screens/auth_screen.dart'; // Import the Auth Screen
 
 void main() {
@@ -21,7 +22,7 @@ class WearcastApp extends StatelessWidget {
           primary: const Color(0xFF5A6B50),
         ),
       ),
-      home: const AuthScreen(), 
+      home: const AuthScreen(),
     );
   }
 }
